@@ -78,7 +78,7 @@ def rule9(password):
 def rule10(password, a, b):
     c = math.gcd(a, b)
 
-    if c in password:
+    if str(c) in password:
         return True
     else:
         return False
@@ -211,8 +211,8 @@ if successes >= 9:
     b = random.randrange(10, 100, 2)
 
     if rule10(password, a, b) == True:
-        slot10.success("**Rule 10:** " + "  \n  " + "Your password contains the greatest common factor of " a, " and ", b, ".")
+        slot10.success(("**Rule 10:** " + "  \n  " + "Your password contains the greatest common factor of ", str(a), " and ", str(b), "."))
         successes += 1
     else:
-        slot10.error("**Rule 10:** " + "  \n  " + "Your password must contain the greatest common factor of " a, " and ", b, ".")
+        slot10.error("**Rule 10:** " + "  \n  " + "Your password must contain the greatest common factor of ", str(a), " and ", str(b), ".")
         successes -= 1
