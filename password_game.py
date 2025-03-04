@@ -140,6 +140,7 @@ if successes >= 1:
         successes += 1
     else:
         slot2.error("**Rule 2:** " + "  \n  " + "Your password must contain a number.")
+        successes -= 1
 
 if successes >= 2:
     if rule3(password) == True:
@@ -147,6 +148,8 @@ if successes >= 2:
         successes += 1
     else:
         slot3.error("**Rule 3:** " + "  \n  " + "Your password must contain an uppercase letter.")
+        successes -= 1
+
 
 if successes >= 3:
     if rule4(password) == True:
@@ -154,6 +157,8 @@ if successes >= 3:
         successes += 1
     else:
         slot4.error("**Rule 4:** " + "  \n  " + "Your password must contain a special character.")
+        successes -= 1
+
 
 if successes >= 4:
     if rule5(password) == True:
@@ -161,6 +166,8 @@ if successes >= 4:
         successes += 1
     else:
         slot5.error("**Rule 5:** " + "  \n  " + "The digits in your password must add up to 25.")
+        successes -= 1
+
 
 
 if successes >= 5:
@@ -169,6 +176,8 @@ if successes >= 5:
         successes += 1
     else:
         slot6.error("**Rule 6:** " + "  \n  " + "Your password must contain a month of the year.")
+        successes -= 1
+
 
 
 if successes >= 6:
@@ -177,6 +186,8 @@ if successes >= 6:
         successes += 1
     else:
         slot7.error("**Rule 7:** " + "  \n  " + "Your password must contain a roman numeral.")
+        successes -= 1
+
 
 
 if successes >= 7:
@@ -185,6 +196,8 @@ if successes >= 7:
         successes += 1
     else:
         slot8.error("**Rule 8:** " + "  \n  " + "The roman numerals in your password must multiply to 5000.")
+        successes -= 1
+
 
 
 if successes >= 8:
@@ -193,6 +206,8 @@ if successes >= 8:
         successes += 1
     else:
         slot9.error("**Rule 9:** " + "  \n  " + "Your password must contain the largest company in the world by market cap.")
+        successes -= 1
+
 
 
 if successes >= 9:
@@ -206,3 +221,5 @@ if successes >= 9:
         successes += 1
     else:
         slot10.error("**Rule 10:** " + "  \n  " + "Your password must contain the greatest common factor of " + d + " and " + e + ".")
+        successes -= 1
+
