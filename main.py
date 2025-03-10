@@ -232,4 +232,4 @@ if 'successes' in st.session_state:
     if st.session_state.successes < successes:
         st.session_state.successes = successes
 
-st.write("Code: https://github.com/scgon/password-game")
+st.write("  \n  " + "Code: https://github.com/scgon/password-game")
