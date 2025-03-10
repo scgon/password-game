@@ -1,3 +1,3 @@
 # password-game
 
-https://sgon-password-game.streamlit.app/
+https://password-game-0.streamlit.app/
