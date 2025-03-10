@@ -4,6 +4,9 @@ import math
 
 ##############################
 
+def clear_text():
+    st.session_state["password"] = ""
+
 def rule2(password):
     for i in password:
         if i.isdigit():
@@ -67,26 +70,49 @@ def rule8(password):
         return False
 
 def rule9(password):
-    if 'Apple' in password:
-        return True
-    else:
-        return False
+    list1 = ['banana', 'Banana', 'bananas', 'Bananas']
+
+    for item in list1:
+        if item in password:
+            return True
+    return False
 
 def rule10(password, a, b):
     c = math.gcd(a, b)
-
     if str(c) in password:
         return True
-    else:
-        return False
-
+    return False
 
 ##############################
 
 st.title("The Password Game!")
 
-password = st.text_input("Please choose a password!")
+if 'rando' not in st.session_state:
+    possible_numbers = [60, 72, 84, 90, 96, 99, 63]
+    choice = random.randrange(0, 2)
+    a = random.choice(possible_numbers)
+
+    if choice == 0:
+        b = random.randrange(10, 500, 2)
+    else:
+        b = random.randrange(12, 500, 3)
+    st.session_state.rando = [a, b, str(a), str(b)]
+
+if 'successes' not in st.session_state:
+    st.session_state.successes = 0
+    max = 0
+else:
+    max = st.session_state.successes
+
+
+password = st.text_input("Please choose a password!", key="password")
 successes = 1
+
+if st.button('Reset', on_click=clear_text):
+    password = ""
+    del st.session_state.rando
+    del st.session_state.successes
+    max = 0
 
 
 slot35 = st.empty()
@@ -132,94 +158,77 @@ if len(password) >= 5:
     successes += 1
 else:
     slot1.error("**Rule 1:** " + "  \n  " + "Your password must contain at least 5 characters.")
-    successes -= 1
+    successes = 0
 
-if successes >= 1:
+if successes >= 2 or max >= 2:
     if rule2(password) == True:
         slot2.success("**Rule 2:** " + "  \n  " + "Your password contains a number.")
         successes += 1
     else:
         slot2.error("**Rule 2:** " + "  \n  " + "Your password must contain a number.")
-        successes -= 1
 
-if successes >= 2:
+if successes >= 3 or max >= 3:
     if rule3(password) == True:
         slot3.success("**Rule 3:** " + "  \n  " + "Your password contains an uppercase letter.")
         successes += 1
     else:
         slot3.error("**Rule 3:** " + "  \n  " + "Your password must contain an uppercase letter.")
-        successes -= 1
 
-
-if successes >= 3:
+if successes >= 4 or max >= 4:
     if rule4(password) == True:
         slot4.success("**Rule 4:** " + "  \n  " + "Your password contains a special character.")
         successes += 1
     else:
         slot4.error("**Rule 4:** " + "  \n  " + "Your password must contain a special character.")
-        successes -= 1
 
-
-if successes >= 4:
+if successes >= 5 or max >= 5:
     if rule5(password) == True:
         slot5.success("**Rule 5:** " + "  \n  " + "The digits in your password add up to 25.")
         successes += 1
     else:
         slot5.error("**Rule 5:** " + "  \n  " + "The digits in your password must add up to 25.")
-        successes -= 1
 
-
-
-if successes >= 5:
+if successes >= 6 or max >= 6:
     if rule6(password) == True:
         slot6.success("**Rule 6:** " + "  \n  " + "Your password contains a month of the year.")
         successes += 1
     else:
         slot6.error("**Rule 6:** " + "  \n  " + "Your password must contain a month of the year.")
-        successes -= 1
 
-
-
-if successes >= 6:
+if successes >= 7 or max >= 7:
     if rule7(password) == True:
         slot7.success("**Rule 7:** " + "  \n  " + "Your password contains a roman numeral.")
         successes += 1
     else:
         slot7.error("**Rule 7:** " + "  \n  " + "Your password must contain a roman numeral.")
-        successes -= 1
 
-
-
-if successes >= 7:
+if successes >= 8 or max >= 8:
     if rule8(password) == True:
         slot8.success("**Rule 8:** " + "  \n  " + "The roman numerals in your password multiply to 5000.")
         successes += 1
     else:
         slot8.error("**Rule 8:** " + "  \n  " + "The roman numerals in your password must multiply to 5000.")
-        successes -= 1
 
-
-
-if successes >= 8:
+if successes >= 9 or max >= 9:
     if rule9(password) == True:
-        slot9.success("**Rule 9:** " + "  \n  " + "Your password contains the largest company in the world by market cap.")
+        slot9.success("**Rule 9:** " + "  \n  " + "Your password contains the most popular fruit in the world.")
         successes += 1
     else:
-        slot9.error("**Rule 9:** " + "  \n  " + "Your password must contain the largest company in the world by market cap.")
-        successes -= 1
+        slot9.error("**Rule 9:** " + "  \n  " + "Your password must contain the most popular fruit in the world.")
 
+if successes >= 10 or max >= 10:
+    d = st.session_state.rando[2]
+    e = st.session_state.rando[3]
+    ax = st.session_state.rando[0]
+    bx = st.session_state.rando[1]
 
-
-if successes >= 9:
-    a = random.randrange(10, 100)
-    b = random.randrange(10, 100, 2)
-    d = str(a)
-    e = str(b)
-
-    if rule10(password, a, b) == True:
+    if rule10(password, ax, bx) == True:
         slot10.success("**Rule 10:** " + "  \n  " + "Your password contains the greatest common factor of " + d + " and " + e + ".")
         successes += 1
     else:
         slot10.error("**Rule 10:** " + "  \n  " + "Your password must contain the greatest common factor of " + d + " and " + e + ".")
-        successes -= 1
+
+if 'successes' in st.session_state:
+    if st.session_state.successes < successes:
+        st.session_state.successes = successes
 
